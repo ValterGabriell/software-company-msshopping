@@ -1,53 +1,60 @@
 package io.github.ValterGabriell.shoppingms.domain;
 
+import io.github.ValterGabriell.shoppingms.domain.dto.BuyResponse;
+import io.github.ValterGabriell.shoppingms.domain.dto.CommonResponse;
+import io.github.ValterGabriell.shoppingms.domain.dto.BuyRequest;
+import io.github.ValterGabriell.shoppingms.infra.repository.ProductBuyedRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class ShopService {
 
+    private final ProductBuyedRepository productBuyedRepository;
+
+    public BuyResponse shopSomething(BuyRequest buyRequest) {
+        log.info("recebido: " + buyRequest.getProtocol());
+        BuyResponse buyResponse = buyRequest.getAccountCard();
+        ProductsBuyed productsBuyed = new ProductsBuyed(LocalDate.now());
+
+        productsBuyed.setProductName(buyRequest.getProduct());
+        productsBuyed.setNumberOfInstallments(buyRequest.getNumberOfInstallments());
+        productsBuyed.setProductValue(buyRequest.getBuyValue());
+
+        BigDecimal installmentsValue = BigDecimal.valueOf(productsBuyed.getProductValue().doubleValue() / buyRequest.getNumberOfInstallments());
+        productsBuyed.setInstallmentsValue(installmentsValue);
+        productsBuyed.setBuyId(buyRequest.getProtocol());
+        productsBuyed.setCardCpf(buyRequest.getCpf());
+
+        BigDecimal newCurrentLimit = buyResponse.getCurrentLimit().subtract(buyRequest.getBuyValue());
+        buyResponse.setCurrentLimit(newCurrentLimit);
+
+        productBuyedRepository.save(productsBuyed);
+
+        return buyResponse;
+    }
 
 
-    public void shopSomething(){
-//        BuyResponse buyResponse = new BuyResponse();
-//        AccountCard accountCard = accountCardRepository.findByCpf(buyRequest.getCpf());
-//
-//        BigDecimal currentAccountCardLimit = accountCard.getCurrentLimit();
-//        if (currentAccountCardLimit.intValue() >= buyRequest.getBuyValue().intValue()) {
-//
-//            ProductsBuyed productsBuyed = new ProductsBuyed(LocalDate.now());
-//            productsBuyed.setProductName(buyRequest.getProduct());
-//            productsBuyed.setNumberOfInstallments(buyRequest.getNumberOfInstallments());
-//            productsBuyed.setProductValue(buyRequest.getBuyValue());
-//            BigDecimal installmentsValue = BigDecimal.valueOf(productsBuyed.getProductValue().doubleValue() / buyRequest.getNumberOfInstallments());
-//            productsBuyed.setInstallmentsValue(installmentsValue);
-//            productsBuyed.setBuyId(UUID.randomUUID().toString());
-//            productsBuyed.setAccountCard(accountCard);
-//
-//            ArrayList<ProductsBuyed> productsBuyedsList = new ArrayList<>();
-//            productsBuyedsList.add(productsBuyed);
-//
-//            BigDecimal newCurrentLimit = currentAccountCardLimit.subtract(buyRequest.getBuyValue());
-//            accountCard.setCurrentLimit(newCurrentLimit);
-//            accountCard.setProductsBuyeds(productsBuyedsList);
-//
-//            buyResponse.setMessage("compra com sucesso efetuada no valor R$: " + buyRequest.getBuyValue());
-//            buyResponse.setNewLimite(accountCard.getCurrentLimit());
-//            buyResponse.setInstallmentValue(installmentsValue);
-//            buyResponse.setNumberOfInstallment(buyRequest.getNumberOfInstallments());
-//            buyResponse.setProduct(productsBuyed.getBuyId());
-//
-//
-//            accountCardRepository.save(accountCard);
-//        } else {
-//            buyResponse.setMessage("compra negada por falta de limite");
-//        }
-//
-//        return buyResponse;
+    public CommonResponse<ProductsBuyed> getProductBuyedByProtocol(String protocol) {
+        Optional<ProductsBuyed> productsBuyed = productBuyedRepository.findById(protocol);
+        CommonResponse<ProductsBuyed> commonResponse = new CommonResponse<>();
+        if (productsBuyed.isPresent()) {
+            commonResponse.setMessage("Tudo certo!");
+            commonResponse.setData(productsBuyed.get());
+            return commonResponse;
+        } else {
+            log.error("produto nao encontrato");
+            commonResponse.setMessage("produto nao encontrato");
+        }
+        return commonResponse;
     }
 
 }
