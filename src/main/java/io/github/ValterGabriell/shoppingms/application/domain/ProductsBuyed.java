@@ -1,4 +1,4 @@
-package io.github.ValterGabriell.shoppingms.domain;
+package io.github.ValterGabriell.shoppingms.application.domain;
 
 import jakarta.persistence.*;
 

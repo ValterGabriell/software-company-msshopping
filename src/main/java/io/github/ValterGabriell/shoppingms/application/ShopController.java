@@ -1,6 +1,7 @@
-package io.github.ValterGabriell.shoppingms.domain;
+package io.github.ValterGabriell.shoppingms.application;
 
-import io.github.ValterGabriell.shoppingms.domain.dto.CommonResponse;
+import io.github.ValterGabriell.shoppingms.application.domain.ProductsBuyed;
+import io.github.ValterGabriell.shoppingms.application.domain.dto.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/shop")
+@RequestMapping("/product")
 @RequiredArgsConstructor
 public class ShopController {
 

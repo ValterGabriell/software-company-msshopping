@@ -1,8 +1,9 @@
-package io.github.ValterGabriell.shoppingms.domain;
+package io.github.ValterGabriell.shoppingms.application;
 
-import io.github.ValterGabriell.shoppingms.domain.dto.BuyResponse;
-import io.github.ValterGabriell.shoppingms.domain.dto.CommonResponse;
-import io.github.ValterGabriell.shoppingms.domain.dto.BuyRequest;
+import io.github.ValterGabriell.shoppingms.application.domain.ProductsBuyed;
+import io.github.ValterGabriell.shoppingms.application.domain.dto.CommonResponse;
+import io.github.ValterGabriell.shoppingms.application.domain.dto.BuyResponse;
+import io.github.ValterGabriell.shoppingms.application.domain.dto.BuyRequest;
 import io.github.ValterGabriell.shoppingms.infra.repository.ProductBuyedRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

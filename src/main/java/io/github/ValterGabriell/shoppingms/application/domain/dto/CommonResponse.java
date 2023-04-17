@@ -1,4 +1,4 @@
-package io.github.ValterGabriell.shoppingms.domain.dto;
+package io.github.ValterGabriell.shoppingms.application.domain.dto;
 
 
 import lombok.Data;

@@ -2,9 +2,9 @@ package io.github.ValterGabriell.shoppingms.infra.RabbitMQ;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.ValterGabriell.shoppingms.domain.ShopService;
-import io.github.ValterGabriell.shoppingms.domain.dto.BuyResponse;
-import io.github.ValterGabriell.shoppingms.domain.dto.BuyRequest;
+import io.github.ValterGabriell.shoppingms.application.ShopService;
+import io.github.ValterGabriell.shoppingms.application.domain.dto.BuyResponse;
+import io.github.ValterGabriell.shoppingms.application.domain.dto.BuyRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
