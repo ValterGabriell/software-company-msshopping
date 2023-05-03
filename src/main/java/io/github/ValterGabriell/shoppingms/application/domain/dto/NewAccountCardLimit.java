@@ -2,10 +2,10 @@ package io.github.ValterGabriell.shoppingms.application.domain.dto;
 
 import java.math.BigDecimal;
 
-public class BuyResponse {
+public class NewAccountCardLimit {
 
     private Long idClientCard;
-    private String cpf;
+    private String identifier;
 
     private BigDecimal currentLimit;
 
@@ -20,12 +20,12 @@ public class BuyResponse {
         this.currentLimit = currentLimit;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public Long getIdClientCard() {
@@ -42,5 +42,15 @@ public class BuyResponse {
 
     public void setCardLimit(BigDecimal cardLimit) {
         this.cardLimit = cardLimit;
+    }
+
+    @Override
+    public String toString() {
+        return "NewAccountCardLimit{" +
+                "idClientCard=" + idClientCard +
+                ", identifier ='" + identifier + '\'' +
+                ", currentLimit=" + currentLimit +
+                ", cardLimit=" + cardLimit +
+                '}';
     }
 }

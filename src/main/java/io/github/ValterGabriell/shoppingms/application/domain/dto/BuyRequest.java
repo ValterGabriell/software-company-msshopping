@@ -3,22 +3,22 @@ package io.github.ValterGabriell.shoppingms.application.domain.dto;
 import java.math.BigDecimal;
 
 public class BuyRequest {
-    private BigDecimal buyValue;
+    private BigDecimal productValue;
     private String product;
     private int numberOfInstallments;
 
     private String protocol;
 
-    private BuyResponse accountCard;
+    private NewAccountCardLimit accountCard;
 
-    private String cpf;
+    private String identifier;
 
-    public BigDecimal getBuyValue() {
-        return buyValue;
+    public BigDecimal getProductValue() {
+        return productValue;
     }
 
     public void setBuyValue(BigDecimal buyValue) {
-        this.buyValue = buyValue;
+        this.productValue = buyValue;
     }
 
     public String getProduct() {
@@ -45,19 +45,19 @@ public class BuyRequest {
         this.protocol = protocol;
     }
 
-    public BuyResponse getAccountCard() {
+    public NewAccountCardLimit getAccountCard() {
         return accountCard;
     }
 
-    public void setAccountCard(BuyResponse accountCard) {
+    public void setAccountCard(NewAccountCardLimit accountCard) {
         this.accountCard = accountCard;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }
